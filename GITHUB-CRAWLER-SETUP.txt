@@ -1,0 +1,66 @@
+ELITE BALL KNOWLEDGE — NIGHTLY CRAWLER SETUP
+============================================
+Do this once. After it, the player database updates itself every night at
+4:00am ET and the live site picks up the changes with no work from you.
+
+You need: a free GitHub account.
+
+
+PART 1 — MAKE THE REPO (10 min)
+-------------------------------
+1. Go to github.com and sign in (or sign up — free).
+2. Click the + in the top right → New repository.
+3. Repository name:  ebk-data
+4. Choose PUBLIC.  (Public is required for the free feed to work.)
+5. Click Create repository.
+
+
+PART 2 — UPLOAD THE CRAWLER (5 min)
+-----------------------------------
+1. On the new repo page click "uploading an existing file".
+2. From your Mac, drag in these two files:
+      ebk.py                       (the crawler)
+      ball-knowledge-MASTER.json   (your current database)
+3. Click Commit changes.
+4. Now the workflow file. On the repo page click "Add file" → "Create new file".
+5. In the filename box type exactly:
+      .github/workflows/crawl.yml
+   (typing the slashes creates the folders automatically)
+6. Paste in the contents of crawl.yml from your download.
+7. Click Commit changes.
+
+
+PART 3 — TURN IT ON AND TEST (5 min)
+------------------------------------
+1. Click the Actions tab at the top of the repo.
+2. If it asks, click "I understand my workflows, go ahead and enable them".
+3. Click "Update NBA database" in the left list.
+4. Click "Run workflow" → the green "Run workflow" button.
+5. Wait. A yellow dot means running, a green check means done.
+   The first run takes a while (it verifies every team-season).
+6. When it's green, go back to the repo's Code tab. You should now see a file
+   called  ball-knowledge-db.json  with a recent timestamp. That's the feed.
+
+If a run fails: click it, click the "crawl" job, and read the red step.
+Send me a screenshot and I'll fix it.
+
+
+PART 4 — CONNECT THE FEED TO THE GAME (2 min)
+---------------------------------------------
+1. Your feed URL is this, with YOURNAME replaced by your GitHub username:
+
+      https://cdn.jsdelivr.net/gh/YOURNAME/ebk-data@main/ball-knowledge-db.json
+
+2. Open the URL in a browser to confirm it shows a wall of text (that's the data).
+3. Go to ebkgame.com/command.html → LIVE DATA FEED.
+4. Paste the URL in the box → click SAVE & TEST.
+5. The light should turn green and read LIVE with a player count.
+
+That's it. From now on:
+  · 4am ET daily — trades, signings, new numbers
+  · Sundays — rarity scores refresh too
+  · Players get the new data automatically on their next visit
+
+Note: jsDelivr caches for up to 12 hours, so a change committed at 4am reaches
+everyone during the day. That's fine for roster news and keeps the feed free
+even with heavy traffic.

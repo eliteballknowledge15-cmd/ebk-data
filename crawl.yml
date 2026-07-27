@@ -1,0 +1,47 @@
+name: Update NBA database
+
+on:
+  schedule:
+    - cron: '0 8 * * *'        # 04:00 ET every day
+  workflow_dispatch:            # lets you run it by hand from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install requests
+
+      # daily: pick up trades, signings and new rookie numbers
+      - run: python3 ebk.py fresh
+        continue-on-error: true
+      - run: python3 ebk.py offseason
+        continue-on-error: true
+      - run: python3 ebk.py numbers
+        continue-on-error: true
+      - run: python3 ebk.py master
+
+      # Sundays only: refresh rarity scores — slow, Wikipedia rate-limited
+      - if: github.event.schedule == '0 8 * * 0'
+        run: python3 ebk.py rarity
+        continue-on-error: true
+
+      - run: python3 ebk.py verify
+
+      - name: Publish the feed
+        run: |
+          cp ball-knowledge-MASTER.json ball-knowledge-db.json
+          git config user.name "EBK crawler"
+          git config user.email "eliteballknowledge15@gmail.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "data: nightly NBA update"
+          git push
