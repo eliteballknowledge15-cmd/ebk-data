@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&amp;family=Barlow:wght@400;600;700&amp;family=Barlow+Condensed:wght@600;700&amp;display=swap">
+<style>
+  body { margin: 0; background: #0E1013; color: #F2EAD8; font-family: 'Barlow', sans-serif; }
+  a { color: #F2EAD8; } a:hover { color: #D4A934; }
+  #ebkPlay, #ebkDaily {
+    font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif !important;
+    font-weight: 700 !important; letter-spacing: 2px !important; font-size: 19px !important;
+    text-decoration: none !important; min-height: 52px !important;
+    display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    padding: 14px 34px !important; border-radius: 4px !important;
+  }
+  #ebkPlay { background: #D4A934 !important; color: #0E1013 !important; border: 2px solid #D4A934 !important; }
+  #ebkDaily { background: transparent !important; color: #F2EAD8 !important; border: 2px solid #D4A934 !important; }
+    .ebk-nav, .ebk-nav:link, .ebk-nav:visited {
+      text-decoration: none !important;
+      font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif !important;
+      font-weight: 700 !important; letter-spacing: 2px !important; font-size: 14px !important;
+      display: inline-flex !important; align-items: center !important; justify-content: center !important;
+      gap: 6px !important; min-height: 40px !important; padding: 9px 18px !important;
+      border-radius: 999px !important; background: transparent !important; line-height: 1 !important;
+      box-sizing: border-box !important; white-space: nowrap !important;
+      transition: border-color .15s, color .15s, background .15s !important;
+    }
+    .ebk-nav-plain, .ebk-nav-plain:link, .ebk-nav-plain:visited { border: 1px solid #2A2E35 !important; color: #F2EAD8 !important; }
+    .ebk-nav-plain:hover { border-color: #D4A934 !important; color: #D4A934 !important; }
+    .ebk-nav-gold, .ebk-nav-gold:link, .ebk-nav-gold:visited { border: 1px solid #D4A934 !important; color: #D4A934 !important; }
+    .ebk-nav-gold:hover { background: #D4A934 !important; color: #0E1013 !important; }
+    .ebk-icon, .ebk-icon:link, .ebk-icon:visited {
+      text-decoration: none !important; display: inline-flex !important; align-items: center !important;
+      justify-content: center !important; width: 40px !important; height: 40px !important;
+      border: 1px solid #2A2E35 !important; border-radius: 999px !important; color: #F2EAD8 !important;
+      box-sizing: border-box !important; transition: border-color .15s, color .15s !important;
+    }
+    .ebk-icon:hover { border-color: #D4A934 !important; color: #D4A934 !important; }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#0E1013"/><circle cx="100" cy="100" r="46" fill="none" stroke="#D4A934" stroke-width="7"/><text x="100" y="114" font-family="Arial Black, sans-serif" font-size="42" font-weight="900" fill="#D4A934" text-anchor="middle">EBK</text></svg>
+</template>
+
+<div style="min-height: 100vh; display: flex; flex-direction: column;">
+  <div style="display: flex; align-items: center; gap: 14px; padding: 14px 22px; border-bottom: 1px solid #23262C; flex-wrap: wrap;">
+    <a href="index.html" style="display: inline-flex;"><img src="logo.svg" alt="Elite Ball Knowledge" style="width: 46px; height: 46px; cursor: pointer;"></a>
+    <span style="font-family: 'Archivo Black', sans-serif; font-size: 18px; letter-spacing: 1px;">ELITE BALL KNOWLEDGE</span>
+    <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #0E1013; background: #D4A934; padding: 3px 10px; border-radius: 3px;">NBA EDITION</span>
+    <span style="flex: 1;"></span>
+    <a class="ebk-nav ebk-nav-gold" href="command.html">⚙ COMMAND CENTER</a>
+    <a class="ebk-icon" href="https://www.instagram.com/eliteballknowledge15/" target="_blank" rel="noopener" title="Instagram">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
+    </a>
+    <a class="ebk-icon" href="https://x.com/Eliteballknow3r" target="_blank" rel="noopener" title="X">𝕏</a>
+  </div>
+
+  <div style="position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: clamp(20px, 5vw, 56px) 20px 40px; gap: clamp(14px, 3vw, 22px); overflow: hidden;">
+    <svg viewBox="0 0 940 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: .09; pointer-events: none;">
+      <g fill="none" stroke="#D4A934" stroke-width="3">
+        <rect x="20" y="20" width="900" height="460"></rect>
+        <line x1="470" y1="20" x2="470" y2="480"></line>
+        <circle cx="470" cy="250" r="72"></circle>
+        <rect x="20" y="155" width="190" height="190"></rect>
+        <circle cx="210" cy="250" r="60"></circle>
+        <path d="M 20 60 A 250 250 0 0 1 20 440"></path>
+        <line x1="20" y1="60" x2="86" y2="60"></line>
+        <line x1="20" y1="440" x2="86" y2="440"></line>
+        <rect x="730" y="155" width="190" height="190"></rect>
+        <circle cx="730" cy="250" r="60"></circle>
+        <path d="M 920 60 A 250 250 0 0 0 920 440"></path>
+        <line x1="920" y1="60" x2="854" y2="60"></line>
+        <line x1="920" y1="440" x2="854" y2="440"></line>
+      </g>
+    </svg>
+    <img src="logo.svg" alt="Elite Ball Knowledge crest" style="position: relative; width: clamp(120px, 32vw, 240px); height: clamp(120px, 32vw, 240px);">
+    <h1 style="position: relative; font-family: 'Archivo Black', sans-serif; font-size: clamp(30px, 6vw, 52px); margin: 0; line-height: 1.05; letter-spacing: 1px;">HOW LONG CAN YOUR<br><span style="color: #D4A934;">BALL KNOWLEDGE</span> SURVIVE?</h1>
+    <p style="position: relative; margin: 0; max-width: 560px; font-size: clamp(15px, 3.4vw, 18px); line-height: 1.55; color: #9AA0A8;">Player → team, college, or jersey number → player. No repeats, three lives, every fact checked against the real record. One wrong name and a ball deflates. Niche wins.</p>
+    <div style="position: relative; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+      <a id="ebkPlay" href="game.html?mode=vs" style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 2px; font-size: 19px; text-decoration: none; min-height: 52px; display: inline-flex; align-items: center; justify-content: center; background: #D4A934; color: #0E1013; padding: 14px 34px; border-radius: 4px;">PLAY VS THE AI</a>
+      <a id="ebkDaily" href="game.html?mode=daily" style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 2px; font-size: 19px; text-decoration: none; min-height: 52px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #D4A934; color: #F2EAD8; padding: 12px 34px; border-radius: 4px;">TODAY'S DAILY CHAIN</a>
+    </div>
+  </div>
+
+  <div style="max-width: 980px; width: 100%; margin: 0 auto; padding: 0 20px 44px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; align-items: baseline; gap: 12px; justify-content: center;">
+      <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 3px; font-size: 15px; color: #6B7280;">HOW IT WORKS — 30 SECONDS</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(178px, 1fr)); gap: 12px;">
+      <div style="border: 1px solid #23262C; background: #14171C; padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Archivo Black', sans-serif; font-size: 26px; color: #D4A934; line-height: 1;">1</span>
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1.5px; font-size: 18px;">NAME A PLAYER</span>
+        <span style="font-size: 15px; line-height: 1.55; color: #9AA0A8;">Anyone who ever played in the NBA — 5,400+ names, 1946 to today.</span>
+      </div>
+      <div style="border: 1px solid #23262C; background: #14171C; padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Archivo Black', sans-serif; font-size: 26px; color: #D4A934; line-height: 1;">2</span>
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1.5px; font-size: 18px;">ANSWER WITH A FACT</span>
+        <span style="font-size: 15px; line-height: 1.55; color: #9AA0A8;">A team he played for, his college, or a jersey number he wore. Your call.</span>
+      </div>
+      <div style="border: 1px solid #23262C; background: #14171C; padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Archivo Black', sans-serif; font-size: 26px; color: #D4A934; line-height: 1;">3</span>
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1.5px; font-size: 18px;">NAME SOMEONE ELSE</span>
+        <span style="font-size: 15px; line-height: 1.55; color: #9AA0A8;">A different player who matches that fact. Back and forth, no repeats.</span>
+      </div>
+      <div style="border: 1px solid #23262C; background: #14171C; padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Archivo Black', sans-serif; font-size: 26px; color: #D4A934; line-height: 1;">✕</span>
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1.5px; font-size: 18px;">MISS AND LOSE A LIFE</span>
+        <span style="font-size: 15px; line-height: 1.55; color: #9AA0A8;">Wrong fact, blank, or the clock hits zero — a ball deflates. Three lives.</span>
+      </div>
+    </div>
+    <div style="border: 1px solid #23262C; background: #101216; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px;">
+      <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 2px; font-size: 14px; color: #6B7280;">A REAL CHAIN LOOKS LIKE THIS</span>
+      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <span style="background: #14202E; border: 1px solid #33507A; color: #BBD6FF; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1px; font-size: 15px; padding: 8px 16px; border-radius: 999px; white-space: nowrap;">LeBron James</span> <span style="color: #3A3F47; font-size: 18px;">→</span> <span style="background: #2A2312; border: 1px solid #D4A934; color: #E5C25C; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1px; font-size: 15px; padding: 8px 16px; border-radius: 999px; white-space: nowrap;">#23</span> <span style="color: #3A3F47; font-size: 18px;">→</span> <span style="background: #14202E; border: 1px solid #33507A; color: #BBD6FF; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1px; font-size: 15px; padding: 8px 16px; border-radius: 999px; white-space: nowrap;">Michael Jordan</span> <span style="color: #3A3F47; font-size: 18px;">→</span> <span style="background: #2A2312; border: 1px solid #D4A934; color: #E5C25C; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1px; font-size: 15px; padding: 8px 16px; border-radius: 999px; white-space: nowrap;">North Carolina</span> <span style="color: #3A3F47; font-size: 18px;">→</span> <span style="background: #14202E; border: 1px solid #33507A; color: #BBD6FF; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1px; font-size: 15px; padding: 8px 16px; border-radius: 999px; white-space: nowrap;">Vince Carter</span> <span style="color: #3A3F47; font-size: 18px;">→</span> <span style="background: #2A2312; border: 1px solid #D4A934; color: #E5C25C; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1px; font-size: 15px; padding: 8px 16px; border-radius: 999px; white-space: nowrap;">Toronto Raptors</span> <span style="color: #3A3F47; font-size: 18px;">→</span> <span style="font-size: 15px; color: #9AA0A8;">…keep going</span>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+      <a href="game.html?mode=vs" style="text-decoration: none; border: 1px solid #2A2E35; background: #171A20; padding: 22px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 2px; color: #D4A934; font-size: 16px;">🤖 PLAY VS THE AI</span>
+        <span style="font-size: 15.5px; line-height: 1.55; color: #9AA0A8;">Pure practice, any time. Pick your opponent's level when you start — Rookie is beatable, Hall of Fame knows almost everyone who ever played.</span>
+        <span style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 2px;">
+          <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 1px; color: #9AA0A8; border: 1px solid #23262C; padding: 3px 9px;">🍼 ROOKIE</span>
+          <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 1px; color: #9AA0A8; border: 1px solid #23262C; padding: 3px 9px;">🏀 PRO</span>
+          <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 1px; color: #9AA0A8; border: 1px solid #23262C; padding: 3px 9px;">📋 VETERAN</span>
+          <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 1px; color: #9AA0A8; border: 1px solid #23262C; padding: 3px 9px;">⭐ ALL-STAR</span>
+          <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 1px; color: #D4A934; border: 1px solid #D4A934; padding: 3px 9px;">🏆 HALL OF FAME</span>
+        </span>
+      </a>
+      <a href="game.html?mode=daily" style="text-decoration: none; border: 1px solid #2A2E35; background: #171A20; padding: 22px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 2px; color: #D4A934; font-size: 16px;">📅 TODAY'S DAILY CHAIN</span>
+        <span style="font-size: 15.5px; line-height: 1.55; color: #9AA0A8;">Everyone gets the same starting player. Ten picks, no clock, one attempt a day. The more obscure your names, the lower your score — and low wins.</span>
+        <span style="font-size: 14px; color: #9AA0A8;">Share your run in the group chat. New chain at midnight.</span>
+      </a>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; max-width: 980px; width: 100%; margin: 0 auto; padding: 0 20px 48px; box-sizing: border-box;">
+    <div style="border: 1px solid #23262C; background: #171A20; padding: 22px; display: flex; flex-direction: column; gap: 8px;">
+      <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 2px; color: #D4A934; font-size: 15px;">DATABASE-VERIFIED</span>
+      <span style="font-size: 16px; line-height: 1.5; color: #9AA0A8;">Every ruling comes from the real record — 5,400+ players, every franchise back to 1946, jersey numbers and colleges included.</span>
+    </div>
+  </div>
+
+  <div style="max-width: 980px; width: 100%; margin: 0 auto; padding: 0 20px 56px; box-sizing: border-box;">
+    <div style="border: 1px dashed #2A2E35; padding: 16px 22px; display: flex; gap: 18px; flex-wrap: wrap; align-items: center; justify-content: center;">
+      <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 2px; font-size: 15px; color: #6B7280;">COMING SOON</span>
+      <span style="font-size: 15px; color: #9AA0A8;">Online multiplayer</span>
+      <span style="color: #2A2E35;">·</span>
+      <span style="font-size: 15px; color: #9AA0A8;">Daily leaderboard</span>
+      <span style="color: #2A2E35;">·</span>
+      <span style="font-size: 15px; color: #9AA0A8;">NFL · MLB · NHL editions</span>
+    </div>
+  </div>
+
+  <div style="margin-top: auto; border-top: 1px solid #23262C; padding: 18px 22px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; justify-content: center; font-size: 14px; color: #6B7280;">
+    <span>© 2026 Elite Ball Knowledge</span>
+    <span style="color: #2A2E35;">·</span>
+    <span style="font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1.5px; color: #D4A934;">BUILD B7</span>
+    <span style="color: #2A2E35;">·</span>
+    <a href="mailto:eliteballknowledge15@gmail.com" style="color: #6B7280;">eliteballknowledge15@gmail.com</a>
+    <span style="color: #2A2E35;">·</span>
+    <a href="https://www.instagram.com/eliteballknowledge15/" target="_blank" rel="noopener" style="color: #6B7280;">Instagram</a>
+    <a href="https://x.com/Eliteballknow3r" target="_blank" rel="noopener" style="color: #6B7280;">X</a>
+  </div>
+</div>
+</body>
+</html>

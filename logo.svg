@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  
+  <defs>
+    <path id="arcTop" d="M 66 256 A 190 190 0 0 1 446 256" fill="none"></path>
+    <path id="arcBot" d="M 74 256 A 182 182 0 0 0 438 256" fill="none"></path>
+    <clipPath id="coin"><circle cx="256" cy="256" r="138"></circle></clipPath>
+    <clipPath id="ballHalf"><rect x="110" y="110" width="146" height="292"></rect></clipPath>
+    <clipPath id="brainHalf"><rect x="256" y="110" width="146" height="292"></rect></clipPath>
+    <path id="leaf" d="M0 0 Q10 -5 24 0 Q10 5 0 0" fill="#D4A934"></path>
+  </defs>
+
+  
+  <circle cx="256" cy="256" r="248" fill="#F5F1E6"></circle>
+  
+  <circle cx="256" cy="256" r="236" fill="#0F2E1D"></circle>
+  <circle cx="256" cy="256" r="236" fill="none" stroke="#D4A934" stroke-width="4"></circle>
+  <circle cx="256" cy="256" r="156" fill="none" stroke="#D4A934" stroke-width="4"></circle>
+
+  
+  <circle cx="256" cy="256" r="148" fill="#F5F1E6"></circle>
+  <g clip-path="url(#coin)">
+    
+    <g clip-path="url(#ballHalf)">
+      <circle cx="256" cy="256" r="138" fill="#E8702A"></circle>
+      <g stroke="#0F2E1D" stroke-width="9" fill="none">
+        <line x1="256" y1="118" x2="256" y2="394"></line>
+        <line x1="118" y1="256" x2="256" y2="256"></line>
+        <path d="M164 158 q58 98 0 196"></path>
+        <path d="M118 256 a138 138 0 0 1 138 -138"></path>
+        <path d="M118 256 a138 138 0 0 0 138 138"></path>
+      </g>
+    </g>
+    
+    <g clip-path="url(#brainHalf)">
+      <circle cx="256" cy="256" r="138" fill="#E8A2B0"></circle>
+      <g stroke="#7A2E3E" stroke-width="8" fill="none" stroke-linecap="round">
+        <path d="M256 132 q52 -8 74 30 q40 8 42 52"></path>
+        <path d="M264 168 q42 -2 56 32 q30 12 24 46"></path>
+        <path d="M262 214 q34 -10 58 12"></path>
+        <path d="M256 250 q40 -14 70 8 q28 22 12 56"></path>
+        <path d="M264 292 q30 -4 48 18"></path>
+        <path d="M258 326 q36 6 60 -12"></path>
+        <path d="M262 362 q28 8 46 -6"></path>
+      </g>
+    </g>
+    
+    <line x1="256" y1="108" x2="256" y2="404" stroke="#0F2E1D" stroke-width="11"></line>
+  </g>
+  <circle cx="256" cy="256" r="148" fill="none" stroke="#0F2E1D" stroke-width="11"></circle>
+
+  
+  <text font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="33" fill="#F5F1E6" letter-spacing="1">
+    <textPath href="#arcTop" startOffset="50%" text-anchor="middle">ELITE BALL KNOWLEDGE</textPath>
+  </text>
+  <text font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="26" fill="#D4A934" letter-spacing="6">
+    <textPath href="#arcBot" startOffset="50%" text-anchor="middle">EST. 2026</textPath>
+  </text>
+
+  
+  
+  <g id="laurelL">
+    <path d="M 141 415 A 196 196 0 0 1 61 236" fill="none" stroke="#D4A934" stroke-width="5" stroke-linecap="round"></path>
+    <use href="#leaf" transform="translate(130 406) rotate(190) scale(1.15)"></use>
+    <use href="#leaf" transform="translate(130 406) rotate(250) scale(1.15)"></use>
+    <use href="#leaf" transform="translate(106 382) rotate(200) scale(1.1)"></use>
+    <use href="#leaf" transform="translate(106 382) rotate(260) scale(1.1)"></use>
+    <use href="#leaf" transform="translate(86 354) rotate(210) scale(1.0)"></use>
+    <use href="#leaf" transform="translate(86 354) rotate(270) scale(1.0)"></use>
+    <use href="#leaf" transform="translate(72 323) rotate(220) scale(0.92)"></use>
+    <use href="#leaf" transform="translate(72 323) rotate(280) scale(0.92)"></use>
+    <use href="#leaf" transform="translate(63 290) rotate(230) scale(0.84)"></use>
+    <use href="#leaf" transform="translate(63 290) rotate(290) scale(0.84)"></use>
+    <use href="#leaf" transform="translate(60 256) rotate(240) scale(0.76)"></use>
+    <use href="#leaf" transform="translate(60 256) rotate(300) scale(0.76)"></use>
+    <use href="#leaf" transform="translate(61 236) rotate(272) scale(0.7)"></use>
+  </g>
+  <use href="#laurelL" transform="translate(512,0) scale(-1,1)"></use>
+</svg>
