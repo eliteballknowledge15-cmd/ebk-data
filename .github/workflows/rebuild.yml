@@ -1,0 +1,42 @@
+name: One-time full rebuild
+
+# Run this ONCE, by hand, from the Actions tab. It re-reads every team-season in
+# NBA/ABA history with the current parser — which is what pulls in games-played
+# data and the cup-of-coffee players the roster tables leave out. Takes ~2 hours.
+# After it finishes, the nightly workflow keeps everything current on its own.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install requests
+
+      - run: python3 ebk.py redo
+      - run: python3 ebk.py offseason
+        continue-on-error: true
+      - run: python3 ebk.py numbers
+        continue-on-error: true
+      - run: python3 ebk.py master
+      - run: python3 ebk.py verify
+
+      - name: Publish the feed
+        run: |
+          cp ball-knowledge-MASTER.json ball-knowledge-db.json
+          git config user.name "EBK crawler"
+          git config user.email "eliteballknowledge15@gmail.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "data: full rebuild (games played + cup-of-coffee players)"
+          git push
