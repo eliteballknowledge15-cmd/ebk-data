@@ -53,6 +53,29 @@ def get(path, tries=4):
         time.sleep(5 * (a + 1))
     return None
 
+def parse_stats_rows(html):
+    """Parse the per-game stats table — this is where CUP-OF-COFFEE players live.
+    The roster table only lists the END-of-season roster, so a 10-day signee who was
+    released (Judah Mintz, Andre Ingram) appears ONLY here. Also yields games played,
+    which is what makes a 3-game stint scoreable as a genuinely rare pull."""
+    m = re.search(r'<table[^>]*id="per_game(?:_stats)?".*?</table>', html, re.S)
+    if not m:
+        return []
+    tbl = m.group(0)
+    out = []
+    for tr in tbl.split("<tr"):
+        pl = re.search(r'data-stat="(?:player|name_display)"[^>]*>(?:\s*<[^>]+>)*([^<]+)', tr)
+        if not pl:
+            continue
+        name = pl.group(1).strip()
+        if not name or name.lower() in ("player", "team totals", "league average"):
+            continue
+        g = re.search(r'data-stat="g"[^>]*>(?:\s*<[^>]+>)*(\d+)', tr)
+        pid = re.search(r'data-append-csv="([^"]+)"', tr)
+        out.append((name, int(g.group(1)) if g else None, pid.group(1) if pid else ""))
+    return out
+
+
 def parse_rows(html):
     """Parse roster rows one <tr> at a time — immune to header cells and cross-row pairing."""
     m = re.search(r'<table[^>]*id="roster".*?</table>', html, re.S)
@@ -325,9 +348,38 @@ def main():
                         if x not in lst:
                             lst.append(x)
                     p["j"] = nums[0]
-                cols = re.findall(r">([^<]+)</a>", colhtml)
-                if cols and not p["c"]:
-                    p["c"] = cols[-1].strip()
+                cols = [c.strip() for c in re.findall(r">([^<]+)</a>", colhtml) if c.strip()]
+                if cols:
+                    # keep EVERY school a player attended, not just the first one seen
+                    have = p.get("C") or ([p["c"]] if p.get("c") else [])
+                    for c in cols:
+                        if c not in have:
+                            have.append(c)
+                    p["C"] = have
+                    if not p["c"]:
+                        p["c"] = have[0]
+
+            # Cup-of-coffee sweep: the stats table catches players the roster table drops
+            # (released 10-day signees) and records how many games each one actually played.
+            for sname, games, spid in parse_stats_rows(html):
+                skey = sname
+                if spid:
+                    ex = db["players"].get(sname)
+                    if ex is not None and ex.get("id") and ex["id"] != spid:
+                        skey = f"{sname} ({spid[-2:]})"
+                sp = db["players"].get(skey)
+                if sp is None:
+                    sp = db["players"].setdefault(skey, {"s": [], "j": None, "c": None, "N": {}})
+                    if spid:
+                        sp["id"] = spid
+                shit = next((x for x in sp["s"] if x["t"] == team and x["y1"] - 1 <= yr <= x["y2"] + 1), None)
+                if shit:
+                    shit["y1"] = min(shit["y1"], yr); shit["y2"] = max(shit["y2"], yr)
+                else:
+                    sp["s"].append({"t": team, "y1": yr, "y2": yr})
+                if games is not None:
+                    gm = sp.setdefault("G", {})
+                    gm[team] = gm.get(team, 0) + games
             done.add(key)
         if n % 20 == 0 or n == len(todo):
             state["done"] = sorted(done)
@@ -407,6 +459,21 @@ def fill_numbers():
     json.dump(db, open(DB_FILE, "w"))
     print(f"DONE \u2014 {fixed} players given numbers, {failed} genuinely have none recorded anywhere.", flush=True)
     print("Next:  python3 ebk.py master   then   python3 ebk.py verify", flush=True)
+
+
+# Players who went straight from high school (or overseas) to the NBA. Basketball-Reference
+# lists a school for some of them anyway — a college they attended later, or for another sport
+# (J.R. Smith played GOLF at North Carolina A&T) — which is not a valid game link.
+PREPS_TO_PROS = {
+    "J.R. Smith", "LeBron James", "Kobe Bryant", "Kevin Garnett", "Tracy McGrady",
+    "Jermaine O'Neal", "Amar'e Stoudemire", "Dwight Howard", "Josh Smith", "Al Jefferson",
+    "Monta Ellis", "Andrew Bynum", "Sebastian Telfair", "Shaun Livingston", "Robert Swift",
+    "Martell Webster", "Gerald Green", "Andray Blatche", "Louis Williams", "C.J. Miles",
+    "Ndudi Ebi", "Travis Outlaw", "James Lang", "Kendrick Perkins", "Darius Miles",
+    "DeShawn Stevenson", "Korleone Young", "Leon Smith", "Moses Malone", "Darryl Dawkins",
+    "Bill Willoughby", "Shawn Kemp", "Rashard Lewis", "Tyson Chandler", "Eddy Curry",
+    "DeSagana Diop", "Kwame Brown", "Ousmane Cisse", "Lou Williams",
+}
 
 
 def build_master():
@@ -501,6 +568,14 @@ def build_master():
         else:
             out[n2] = p
             keymap[ck] = n2
+
+    # preps-to-pros: strip the bogus school so the country becomes the link
+    stripped = 0
+    for name, p in out.items():
+        if name in PREPS_TO_PROS and (p.get("c") or p.get("C")):
+            p["c"] = None; p.pop("C", None); stripped += 1
+    if stripped:
+        print(f"Cleared bogus colleges for {stripped} preps-to-pros players", flush=True)
 
     usa = 0
     for p in out.values():
