@@ -53,12 +53,19 @@ def get(path, tries=4):
         time.sleep(5 * (a + 1))
     return None
 
+def stats_table_ids(html):
+    """Diagnostic: every table id on a page, so a renamed stats table is obvious."""
+    return re.findall(r'<table[^>]*id="([^"]+)"', html)
+
+
 def parse_stats_rows(html):
     """Parse the per-game stats table — this is where CUP-OF-COFFEE players live.
     The roster table only lists the END-of-season roster, so a 10-day signee who was
     released (Judah Mintz, Andre Ingram) appears ONLY here. Also yields games played,
     which is what makes a 3-game stint scoreable as a genuinely rare pull."""
-    m = re.search(r'<table[^>]*id="per_game(?:_stats)?".*?</table>', html, re.S)
+    # BBR has renamed this table more than once (per_game, per_game_stats, players_per_game),
+    # so match any stats table whose id mentions per_game or totals rather than one exact name.
+    m = re.search(r'<table[^>]*id="[^"]*(?:per_game|totals)[^"]*".*?</table>', html, re.S)
     if not m:
         return []
     tbl = m.group(0)
@@ -70,7 +77,8 @@ def parse_stats_rows(html):
         name = pl.group(1).strip()
         if not name or name.lower() in ("player", "team totals", "league average"):
             continue
-        g = re.search(r'data-stat="g"[^>]*>(?:\s*<[^>]+>)*(\d+)', tr)
+        # BBR has used data-stat="g" and "games" for this column at different times
+        g = re.search(r'data-stat="(?:g|games|g_played)"[^>]*>(?:\s*<[^>]+>)*(\d+)', tr)
         pid = re.search(r'data-append-csv="([^"]+)"', tr)
         out.append((name, int(g.group(1)) if g else None, pid.group(1) if pid else ""))
     return out
@@ -145,6 +153,19 @@ def test_page(code, yr):
     for num, name, colhtml, ctry, pid in rows:
         cols = re.findall(r">([^<]+)</a>", colhtml)
         print(f"  #{num.strip() or '?':>6}  {name:<28} {cols[-1].strip() if cols else '-'}  {ctry or '??'}")
+    # games played comes from the stats table — BBR keeps renaming its id, so list them all
+    print("\nTable ids on this page:", ", ".join(stats_table_ids(html)) or "!! none found")
+    srows = parse_stats_rows(html)
+    print(f"{len(srows)} stats rows parsed (name / games):")
+    for sname, games, spid in srows[:25]:
+        print(f"  {sname:<28} {games if games is not None else '-'} G")
+    if srows and srows[0][1] is None:
+        mt = re.search(r'<table[^>]*id="[^"]*per_game[^"]*".*?</table>', html, re.S)
+        if mt:
+            for tr in mt.group(0).split("<tr"):
+                if 'data-stat="player"' in tr or 'data-stat="name_display"' in tr:
+                    print("\nRAW first stats row:\n", tr[:900])
+                    break
     # show the raw roster row for the first player so we can see how BBR encodes each cell
     m = re.search(r'<table[^>]*id="roster".*?</table>', html, re.S)
     tbl = m.group(0) if m else html
