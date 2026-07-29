@@ -2,7 +2,7 @@ name: One-time full rebuild
 
 # Run this ONCE, by hand, from the Actions tab. It re-reads every team-season in
 # NBA/ABA history with the current parser — which is what pulls in games-played
-# data and the cup-of-coffee players the roster tables leave out. Takes ~2 hours.
+# data and the cup-of-coffee players the roster tables leave out. Takes ~5 hours.
 # After it finishes, the nightly workflow keeps everything current on its own.
 
 on:
@@ -10,6 +10,12 @@ on:
 
 permissions:
   contents: write
+
+# never run at the same time as the nightly job — two jobs pushing to the same
+# branch is what made the first attempt lose 4.5 hours of work at the last step
+concurrency:
+  group: ebk-data-write
+  cancel-in-progress: false
 
 jobs:
   rebuild:
@@ -38,5 +44,14 @@ jobs:
           git config user.name "EBK crawler"
           git config user.email "eliteballknowledge15@gmail.com"
           git add -A
-          git diff --staged --quiet || git commit -m "data: full rebuild (games played + cup-of-coffee players)"
-          git push
+          git diff --staged --quiet && exit 0
+          git commit -m "data: full rebuild (games played + cup-of-coffee players)"
+          # if anything else pushed while we were crawling, take our data and retry
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            echo "push rejected — pulling and retrying ($i/5)"
+            git pull --rebase -X ours origin main || git rebase --skip || true
+            sleep 5
+          done
+          echo "could not push after 5 tries"
+          exit 1
