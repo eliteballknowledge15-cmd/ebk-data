@@ -8,6 +8,11 @@ on:
 permissions:
   contents: write
 
+# never overlap with the full-rebuild workflow
+concurrency:
+  group: ebk-data-write
+  cancel-in-progress: false
+
 jobs:
   crawl:
     runs-on: ubuntu-latest
@@ -43,5 +48,13 @@ jobs:
           git config user.name "EBK crawler"
           git config user.email "eliteballknowledge15@gmail.com"
           git add -A
-          git diff --staged --quiet || git commit -m "data: nightly NBA update"
-          git push
+          git diff --staged --quiet && exit 0
+          git commit -m "data: nightly NBA update"
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            echo "push rejected — pulling and retrying ($i/5)"
+            git pull --rebase -X ours origin main || git rebase --skip || true
+            sleep 5
+          done
+          echo "could not push after 5 tries"
+          exit 1
